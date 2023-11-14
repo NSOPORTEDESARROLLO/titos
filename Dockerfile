@@ -1,9 +1,11 @@
-FROM python:3.13.0a1-bookworm
+FROM debian:bookworm-slim
 
-COPY app /opt
+ADD app /opt/app/
 
-RUN pip install -r /opt/app/requirements.txt
+RUN apt-get update; apt-get -y upgrade; apt-get -y install python3 pip python3.11-venv; \
+     python3 -m venv /opt/app/venv
+ 
 WORKDIR /opt/app
 
-CMD [ "uvicorn --port 8000  --host 0.0.0.0  main:app" ]
+CMD . /opt/app/venv/bin/activate && exec uvicorn main:app
 
