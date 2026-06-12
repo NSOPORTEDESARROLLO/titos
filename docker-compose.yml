@@ -1,0 +1,12 @@
+services:
+  titos:
+    image: ewr.vultrcr.com/nsoporte/titos:1
+    restart: unless-stopped
+    container_name: titos
+    ports:
+      - "5001:8000"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    env_file:
+      - .env
+    
